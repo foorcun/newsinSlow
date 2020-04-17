@@ -10,6 +10,14 @@ class Metin {
 
 
 
+    analysis() {
+
+
+
+        $("#analizSonrasi").append(this.code);
+
+    }
+
     determinedArrayToCode() {
         var eklenecekKod = [];
 
@@ -17,14 +25,35 @@ class Metin {
 
             if (this.determineType(this.metinDetermined[index]) == "Kelime") {
 
-                eklenecekKod.push('<a href="#" id="kelime' + index + '" data-toggle="popover" data-trigger="hover" title="Popover Header" data-content="' + this.metinDetermined[index].kelime + '">' + this.metinDetermined[index].kelime + '</a><script type="text/javascript">$("#kelime' + index + '").popover(function () { });</script>');
+                var popoverTitle = this.metinDetermined[index].kelime
+                var popoverBody = "English: " + this.metinDetermined[index].English + "; Turkce: " + this.metinDetermined[index].Turkce + "; Acıklama: " + this.metinDetermined[index].Acıklama + "; Bilme: " + this.metinDetermined[index].Bilme
+                
+                //color
+                var color = this.color(this.metinDetermined[index].Bilme)
+                
+
+
+
+
+                eklenecekKod.push('<a href="#" '+color +' id="kelime' + index + '" data-toggle="popover" data-trigger="hover" title="' + popoverTitle + '" \
+                data-content="'+ popoverBody + '\
+                ">' + popoverTitle + '\
+                </a><script type="text/javascript">$("#kelime' + index + '").popover(function () { });</script>');
                 eklenecekKod.push(" ");
 
 
             } else if (this.determineType(this.metinDetermined[index]) == "KelimeWithNoktalama") {
 
-                eklenecekKod.push('<a href="#" id="kelime' + index + '" data-toggle="popover" data-trigger="hover" title="Popover Header" data-content="' + this.metinDetermined[index].kelime + '">' + this.metinDetermined[index].kelime + '</a><script type="text/javascript">$("#kelime' + index + '").popover(function () { });</script>');
-                eklenecekKod.push(this.metinDetermined[index].noktalama);
+                var popoverTitle = this.metinDetermined[index].kelime
+                var popoverBody = "English: " + this.metinDetermined[index].English + "; Turkce: " + this.metinDetermined[index].Turkce + "; Acıklama: " + this.metinDetermined[index].Acıklama + "; Bilme: " + this.metinDetermined[index].Bilme
+
+
+
+                eklenecekKod.push('<a href="#" id="kelime' + index + '" data-toggle="popover" data-trigger="hover" title="' + popoverTitle + '" \
+                 data-content="'+ popoverBody + '\
+                 ">' + popoverTitle + '</a><script type="text/javascript">$("#kelime' + index + '").popover(function () { });</script>');
+                
+                 eklenecekKod.push(this.metinDetermined[index].noktalama);
                 eklenecekKod.push(" ");
 
             }
@@ -120,6 +149,28 @@ class Metin {
     }
 
 
+
+    color(Bilme){
+
+        var color = 'style="color:#000000;"' //siyah // default
+
+                if (Bilme == "5"){
+
+                    //var color = 'style="color:#FF0000;"' //red
+                    var color = 'style="color:#29EF49;"' //red
+                }else if(Bilme == "K"){
+                    var color = 'style="color:#FF0000;"' //red
+
+
+                }
+                else if(Bilme == "1"){
+                    var color = 'style="color:#F9EA37;"' //sarı
+
+
+                }
+
+                return color
+    }
 
 
 
